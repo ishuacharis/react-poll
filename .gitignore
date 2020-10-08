@@ -4,6 +4,12 @@
 /node_modules
 /.pnp
 .pnp.js
+/dist
+/.babelrc
+/rollup.config.js
+/stats.html
+/src/lib/components/Testing
+/src/lib/components/TestComponents
 
 # testing
 /coverage

@@ -1,0 +1,46 @@
+.Housemate {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+}
+
+.avatar {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    margin-right: 2rem;
+}
+
+.avatar img{
+    border-radius: 50%;
+    display: block;
+    border: 4px soild #000;
+}
+.name {
+    font-size: 2.5rem;
+}
+.controls{
+    display: flex;
+    padding: 1rem 0;
+    align-items: center;
+}
+
+.control:not(:last-child){
+    width: 3rem;
+    margin-right: 0.5rem;
+}
+
+.control span {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    font-size: 3rem;
+    background-color: rebeccapurple;
+    text-align: center;
+    line-height: 2.5rem;
+    cursor: pointer;
+    color: #fff;
+}
