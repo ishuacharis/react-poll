@@ -1,0 +1,81 @@
+.Gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
+  font-size: 1.5rem;
+  background-color: #F2F3FB;
+}
+.buttons{
+  margin-top: 3rem;
+}
+.button-list {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0;
+}
+.button {
+  font-size: 2rem;
+}
+
+.center-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 3.5rem;
+  justify-content: space-around;
+}
+.single {
+  width: 100%;
+}
+.top {
+  position: relative;
+}
+.big-image{
+  height: 30rem;
+}
+.small-image {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  position: absolute;
+  top: 10px;
+  right: -10px;
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+.avi {
+  width: 20%;
+  display: flex;
+  align-items: center;
+}
+.user-avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+.rating {
+  display: flex;
+  justify-content: space-between;
+  width: calc(80% - 2rem);
+}
+.counts{
+  display: inline-block;
+}
+img{
+  border-radius: inherit;
+}
+
+@media screen and (min-width: 768px) {
+  .center-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .small-image {
+    right: -20px;
+  }
+}

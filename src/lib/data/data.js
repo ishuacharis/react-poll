@@ -34,6 +34,15 @@ const themes  =  {
     }
 }
 
+const getUser =  (screen_name) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(houseMatesUpForEviction.find(housemate => housemate.name === screen_name))
+        reject("Failure")
+      }, 3000)
+    })
+}
 
 
-export {totalVotes, houseMatesUpForEviction,themes,}
+
+export {totalVotes, houseMatesUpForEviction,themes, getUser}

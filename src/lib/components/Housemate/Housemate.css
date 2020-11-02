@@ -1,22 +1,23 @@
-.Housemate {
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
+.housemate {
+    text-align: center;
     border: 1px solid #ccc;
     padding: 0.5rem;
+    display: block;
+    position: relative;
 }
 
 .avatar {
+    margin: 0 auto;
+    display: block;
     width: 15rem;
     height: 15rem;
+    border: 3px solid rebeccapurple;
     border-radius: 50%;
-    margin-right: 2rem;
+    padding: 0.5rem;
 }
 
 .avatar img{
-    border-radius: 50%;
-    display: block;
-    border: 4px soild #000;
+    border-radius: inherit;
 }
 .name {
     font-size: 2.5rem;
@@ -43,4 +44,5 @@
     line-height: 2.5rem;
     cursor: pointer;
     color: #fff;
+    -webkit-tap-highlight-color: transparent;
 }

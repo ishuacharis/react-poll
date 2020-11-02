@@ -6,17 +6,17 @@ import Housemate from '../Housemate/Housemate'
 
 
 function Housemates() {
+
     const {houseMates,} = useContext(VoteContext)
     const houses = houseMates.map((houseMateUpForEviction) =>
-    <Housemate 
-        houseMateUpForEviction= {houseMateUpForEviction} 
-        key={houseMateUpForEviction.name}  /> 
+    <Housemate
+        houseMateUpForEviction= {houseMateUpForEviction}
+        key={houseMateUpForEviction.name}  />
     )
     return (
-        <div className="Housemates">
-            {
-                houses
-            }
+
+        <div className="housemates">
+             {houses}
         </div>
     )
 }
