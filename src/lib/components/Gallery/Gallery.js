@@ -3,7 +3,7 @@ import "./Gallery.css"
 import Helper from  "../../Helper"
 
 function Gallery(){
-  const KEY = "9501103-f26340bebe28eaafdf00a1fe0"
+  const KEY = ""
   const {shortenCounts} = Helper()
   const [photos , setPhotos] = useState(null)
   const [fetching, setFetching] = useState(false)
