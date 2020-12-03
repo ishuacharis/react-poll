@@ -5,9 +5,9 @@ import './Housemate.css'
 
 
 
-const Avatar  = ({avatar, match, name}) => {
+const Avatar  = ({avatar, url, name}) => {
   return(
-    <Link to={`${match.url}/${name}`} className="avatar">
+    <Link to={`${url}/${name}`} className="avatar">
       <img src={avatar} alt="" />
     </Link>
   )
@@ -16,15 +16,12 @@ const Avatar  = ({avatar, match, name}) => {
 
 function Housemate(props) {
     let match = useRouteMatch()
-    console.log(match)
     const {houseMateUpForEviction,} = props
     const {avatar,name} = houseMateUpForEviction
 
-
     return (
-
       <div className="housemate">
-        <Avatar avatar={avatar} match={match} name={name} />
+        <Avatar avatar={avatar} url={match.url} name={name} />
       </div>
 
     );

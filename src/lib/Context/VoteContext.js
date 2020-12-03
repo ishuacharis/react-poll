@@ -10,5 +10,6 @@ const VoteContext = createContext({
     onVoteIncrement:  () => {},
     onVoteDecrement: () => {}
 })
+VoteContext.displayName = "VoteContext"
 
 export default VoteContext

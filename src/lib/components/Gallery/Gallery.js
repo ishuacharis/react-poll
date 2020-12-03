@@ -3,7 +3,7 @@ import "./Gallery.css"
 import Helper from  "../../Helper"
 
 function Gallery(){
-  const KEY = ""
+  const KEY = process.env.REACT_APP_PIXABAY_KEY
   const {shortenCounts} = Helper()
   const [photos , setPhotos] = useState(null)
   const [fetching, setFetching] = useState(false)

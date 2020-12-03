@@ -14,6 +14,10 @@ import NotFound from 'lib/components/NotFound/NotFound'
 import routes from 'lib/Routes'
 
 import {totalVotes, houseMatesUpForEviction,} from './lib/data/data'
+import {
+  increaseRemainingVotes,decreaseRemainingVotes,
+  updateUser, changeRemaining
+} from './lib/utils/utils'
 
 import VoteContext from 'lib/Context/VoteContext'
 
@@ -25,35 +29,35 @@ function App() {
   const [remainingVotes, setRemainingVotes] = useState(totalVotes)
   const [votesLeft, setVotesLeft] = useState(totalVotes)
 
-  const changeRemaining = (command) => {
+  const args = {
+    votes: remainingVotes,
+    amount: 10, 
+    houseMates: houseMates
+  }
 
-    if(command === 'increase'){
-       setRemainingVotes(remainingVotes - 10)
-    }
-    if(command === 'decrease'){
-      setRemainingVotes(remainingVotes + 10)
-    }
+  const increaseUserVoteCount = (args) => {
+    let copyOfList  =  args['houseMates']
+    return copyOfList.map(h => {
+      if(h.name === args['houseMate'].name) {
+        h.voteCount += args['amount']
+        return h
+      }
+      else return h
+    })
   }
-  const updateUser = (command, obj) =>{
-    if(command === 'increase') {
-      return houseMates.map(h => {
-        if(h.name === obj.name) {
-          h.voteCount += 10
-          return h
-        }
-        else return h
-      })
-    }
-    if(command === 'decrease') {
-      return houseMates.map(h => {
-        if(h.name === obj.name) {
-          h.voteCount += 10
-          return h
-        }
-        else return h
-      })
-    }
+
+  const decreaseUserVoteCount = (args) => {
+    let copyOfList  =  args['houseMates']
+    return copyOfList.map(h => {
+      if(h.name === args['houseMate'].name) {
+        h.voteCount -= args['amount']
+        return h
+      }
+      else return h
+    })
   }
+
+  
   const onVoteIncrement = (houseMate) => {
     if (votesLeft > 0 && votesLeft <= 100) {
       houseMates.map(
@@ -61,8 +65,12 @@ function App() {
           if (houseMateUpForEviction.name === houseMate.name) {
             if (houseMateUpForEviction.voteCount >= 0 && houseMateUpForEviction.voteCount < 100) {
               setVotesLeft(votesLeft - 10)
-              changeRemaining('increase')
-              setHouseMateVote(updateUser('increase',houseMate))
+              changeRemaining(setRemainingVotes, increaseRemainingVotes, args)
+              const newArgs = {
+                ...args, 
+                houseMate: houseMate
+              }
+              setHouseMateVote(updateUser(increaseUserVoteCount,newArgs))
             }
           }
           return false;
@@ -71,24 +79,21 @@ function App() {
   }
 
   const onVoteDecrement = (houseMate) => {
-  houseMatesUpForEviction.map(
-    (houseMateUpForEviction) => {
-      if (houseMateUpForEviction.name === houseMate.name) {
-        if (houseMateUpForEviction.voteCount > 0 && houseMateUpForEviction.voteCount <= 100) {
-          setVotesLeft(votesLeft + 10)
-          changeRemaining('decrease')
-          setHouseMateVote(
-            houseMates.map(h => {
-              if (h.name === houseMate.name) {
-                h.voteCount -= 10
-                return h
-              } else return h
-            })
-          )
+    houseMatesUpForEviction.map(
+      (houseMateUpForEviction) => {
+        if (houseMateUpForEviction.name === houseMate.name) {
+          if (houseMateUpForEviction.voteCount > 0 && houseMateUpForEviction.voteCount <= 100) {
+            setVotesLeft(votesLeft + 10)
+            changeRemaining(setRemainingVotes, decreaseRemainingVotes, args)
+            const newArgs = {
+              ...args, 
+              houseMate: houseMate
+            }
+            setHouseMateVote(updateUser(decreaseUserVoteCount,newArgs))
+          }
         }
-      }
-      return false;
-    })
+        return false;
+      })
   }
   const props = {
     houseMates: houseMates,

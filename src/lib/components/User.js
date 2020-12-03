@@ -50,7 +50,7 @@ function User() {
       <div className="center">
         <div className="avatar">
           <img src={user.avatar} alt="" />
-        </div>
+        </div> 
         <div className="name">
           {user.name}
         </div>
@@ -62,7 +62,7 @@ function User() {
             operator="+"
           />
           <div className="control">
-            <input type="text" value="0" disabled ref={inputRef}  />
+            <input type="text" value={user.voteCount} disabled ref={inputRef}  />
           </div>
           <Control
             reference = {negativeClick}
