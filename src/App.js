@@ -5,7 +5,7 @@ import {
   Switch,
 } from "react-router-dom";
 import './App.css';
-import Home from 'lib/components/Home'
+import Home from 'lib/components/Home/Home'
 // import Project from 'lib/components/Project/Project';
 // import User from 'lib/components/User'
 // import Testing from 'lib/components/Testing/Testing'
@@ -108,15 +108,17 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Route path="/" exact strict component={Home} />
-            <VoteContext.Provider value= { {...props} }>
-              {
-                routes.map((route, i) => <Route path={route.path} exact strict component={route.component} key={i} />)
-              }
-            </VoteContext.Provider>
+        <div className="container">
+          <Switch>
             <Route path="/" exact strict component={Home} />
-        </Switch>
+              <VoteContext.Provider value= { {...props} }>
+                {
+                  routes.map((route, i) => <Route path={route.path} exact strict component={route.component} key={i} />)
+                }
+              </VoteContext.Provider>
+              <Route path="/" exact strict component={Home} />
+          </Switch>
+        </div>
       </div>
     </Router>
   );

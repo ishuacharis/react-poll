@@ -7,7 +7,6 @@
   align-content: center;
 }
 .auth__content {
-  height: 55vh;
   padding: 2rem;
   width: 100%;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.35),

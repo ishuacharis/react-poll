@@ -1,65 +1,59 @@
 import React , { useState} from 'react'
 import {Link} from 'react-router-dom'
 
-import {handleValidate, handleSubmit} from '../../utils/utils'
+import {handleSubmit} from '../../utils/utils'
 
 import {Formik, Form, Field, ErrorMessage} from 'formik'
+import { loginSchema } from 'lib/ValidationSchema/schema'
+import FormField from './FormField'
 
 function Login() {
   
 
   return (
-    <div className = "auth__container">
-      <div className = "auth__content">
-        <div className="auth__socials"></div>
-        <div className="divider">
-          <span className="line left"></span>
-          <span className="or">OR</span>
-          <span className="line right"></span>
-        </div>
+    <div className = "login">
+      <Formik
+        initialValues= { {email: '', password: ''} }
+        validationSchema = {loginSchema}
+        onSubmit = { (values, { setSubmitting }) => {
+          const args = {
+            values: values,
+            cb: setSubmitting
+          }
+          handleSubmit(args)
+        }}
+      >
 
-        <Formik
-
-          initialValues= { {email: '', password: ''} }
-          validate = {handleValidate}
-          onSubmit = { (values, { setSubmitting }) => {
-            const args = {
-              values: values,
-              cb: setSubmitting
-            }
-            handleSubmit(args)
-          }}
-        >
-
-        {({isSubmitting}) => (
-          <Form>
-            <div className="field__content">
-            {isSubmitting}
-              <div className="field">
-                <Field type="email" name="email" className="input" placeholder="Email" />
-                <ErrorMessage name = "email" component="div" />
-              </div>
-              <div className="field">  
-                <Field type="password" name="password" className="input" placeholder="Password" />
-              </div>
-              <div className="link">
-                <Link to={{
-                  pathname: '/auth',
-                  search: '?a=login'
-                }} className="link-item">Already have an account?</Link>
-              </div>
-              <div className="field">    
-                <button type="submit" className="btn" disabled={isSubmitting}> 
-                  Create
-                </button>
-              </div>
+      {({isSubmitting,isValid, dirty}) => (
+        <Form>
+          <div className="field__content">
+          {isSubmitting}
+            <FormField 
+              name="email"
+              placeholder="Email"
+              type="email"
+            />
+            <FormField 
+              name="password"
+              placeholder="Password"
+              type="password"
+            />
+            <div className="link">
+              <Link to={{
+                pathname: '/auth',
+                search: '?a=register'
+              }} className="link-item">Don't have an account?</Link>
             </div>
-          </Form>
-        )}
+            <div className="field">    
+              <button type="submit" className="btn" disabled={ !(dirty && isValid) || isSubmitting}> 
+                Log in
+              </button>
+            </div>
+          </div>
+        </Form>
+      )}
 
-        </Formik>
-        
-      </div>
+      </Formik>
     </div>
   )
 }

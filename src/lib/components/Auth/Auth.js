@@ -14,7 +14,17 @@ function Auth() {
   let comp =  query.get('a') === 'login' ? <Login /> : <Register />
 
   return (
-    <div className="container">{comp}</div>
+    <div className = "reset auth__container">
+      <div className = "auth__content">
+        <div className="auth__socials"></div>
+        <div className="divider">
+          <span className="line left"></span>
+          <span className="or">OR</span>
+          <span className="line right"></span>
+        </div>
+          {comp}
+      </div>
+    </div>
   )
 
 

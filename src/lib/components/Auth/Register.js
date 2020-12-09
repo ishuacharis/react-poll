@@ -1,61 +1,63 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {Formik, Form, Field, ErrorMessage  } from 'formik'
-import { handleValidate, handleSubmit } from '../../utils/utils'
+import { handleSubmit } from '../../utils/utils'
+import { signUpSchema } from '../../ValidationSchema/schema'
+import FormField from './FormField'
 
 
 function Register() {
 
   return (
-    <div className = "auth__container">
-      <div className="auth__content">
-        <div className="auth__socials"></div>
-        <div className="divider">
-          <span className="line left"></span>
-          <span className="or">OR</span>
-          <span className="line right"></span>
-        </div>
+    <div className = "register">
+      <Formik
+        initialValues = { {email: '', password: '', confirmPassword: ''} }
+        validationSchema = { signUpSchema }
+        onSubmit = { (values, {setSubmitting,})  => {
+          const args = {
+            values: values,
+            cb: setSubmitting
+          }
+          handleSubmit(args)
+        } }
+      >
+        {/* value: get the value entered in the field
+        touched: get touched object of the field */}
 
-        <Formik
-          initialValues = { {email: '', password: ''} }
-          validate = { handleValidate }
-          onSubmit = { (values, {setSubmitting})  => {
-            const args = {
-              values: values,
-              cb: setSubmitting
-            }
-            handleSubmit(args)
-          } }
-        >
+        {({isSubmitting, isValid, dirty}) => (
+          <Form>
+            <div className="field__content">
+              <FormField 
+                name="email"
+                placeholder="Email"
+                type="email"
+              />
+              <FormField 
+                name="password"
+                placeholder="Password"
+                type="password"
+              />
 
-          {({isSubmitting}) => (
-            <Form>
-              <div className="field__content">
-              {isSubmitting}
-                <div className="field">
-                  <Field type="email" name="email" className="input" placeholder="Email" />
-                  <ErrorMessage name = "email" component="div" />
-                </div>
-                <div className="field">  
-                  <Field type="password" name="password" className="input" placeholder="Password" />
-                  <ErrorMessage name="password" component="div" />
-                </div>
-                <div className="link">
-                  <Link to={{
-                    pathname: '/auth',
-                    search: '?a=login'
-                  }} className="link-item">Already have an account?</Link>
-                </div>
-                <div className="field">    
-                  <button type="submit" className="btn" disabled={isSubmitting}> 
-                    Create
-                  </button>
-                </div>
+              <FormField 
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                type="password"
+              />
+              <div className="link">
+                <Link to={{
+                  pathname: '/auth',
+                  search: '?a=login'
+                }} className="link-item">Already have an account?</Link>
               </div>
-            </Form>
-          )}
-        </Formik>
-      </div>
+              <div className="field">    
+                <button type="submit" className="btn" disabled={!(isValid && dirty) || isSubmitting}> 
+                  Create
+                </button>
+              </div>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   )
 
