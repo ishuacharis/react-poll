@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 import {handleSubmit} from '../../utils/utils'
 
-import {Formik, Form, Field, ErrorMessage} from 'formik'
+import {Formik, Form} from 'formik'
 import { loginSchema } from 'lib/ValidationSchema/schema'
 import FormField from './FormField'
 

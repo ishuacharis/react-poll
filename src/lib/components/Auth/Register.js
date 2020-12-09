@@ -65,3 +65,6 @@ function Register() {
 
 
 export default Register
+// {!isValid  
+//   || (Object.keys(touched).length === 0 && touched.constructor === Object) 
+//   || isSubmitting}
