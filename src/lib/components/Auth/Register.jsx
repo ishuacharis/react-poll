@@ -28,9 +28,19 @@ function Register() {
           <Form>
             <div className="field__content">
               <FormField 
+                name="name"
+                placeholder="Name"
+                type="text"
+              />
+              <FormField 
                 name="email"
                 placeholder="Email"
                 type="email"
+              />
+              <FormField 
+                name="phoneNo"
+                placeholder="Phone no"
+                type="text"
               />
               <FormField 
                 name="password"

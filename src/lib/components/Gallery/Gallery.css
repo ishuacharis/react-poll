@@ -67,9 +67,9 @@
 .counts{
   display: inline-block;
 }
-img{
+/* img{
   border-radius: inherit;
-}
+} */
 
 @media screen and (min-width: 768px) {
   .center-gallery {

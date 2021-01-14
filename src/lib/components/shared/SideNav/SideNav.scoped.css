@@ -1,0 +1,57 @@
+.sidenav{
+    margin-right: 2rem;
+    min-height: inherit;
+}
+.sidenav-links {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.sidenav-link {
+    margin-top: 2rem;
+}
+
+.sidenav-item{
+    font-size: 2rem;
+    color: rgb(112, 109, 109);
+    display: block;
+}
+
+.logout {
+    display: flex; 
+    justify-content: space-between;
+}
+
+.avatar {
+    margin: 0 auto;
+    display: block;
+    border: 3px solid rebeccapurple;
+    border-radius: 50%;
+    padding: 0.5rem;
+    align-self: center;
+}
+
+.avatar img{
+    border-radius: inherit;
+}
+
+.handle{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    font-size: 1.8rem;
+}
+
+.avatar-small{
+    width: 5rem;
+    height: 5rem;
+}
+
+button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+}

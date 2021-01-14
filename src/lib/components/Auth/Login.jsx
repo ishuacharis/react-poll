@@ -45,9 +45,10 @@ function Login() {
               }} className="link-item">Don't have an account?</Link>
             </div>
             <div className="field">    
-              <button type="submit" className="btn" disabled={ !(dirty && isValid) || isSubmitting}> 
+              {!isSubmitting && <button type="submit" className="btn" disabled={ !(dirty && isValid) || isSubmitting}> 
                 Log in
-              </button>
+              </button>}
+              {isSubmitting && <div className="loading"></div>}
             </div>
           </div>
         </Form>

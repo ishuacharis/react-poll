@@ -108,17 +108,16 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <div className="container">
-          <Switch>
+        <Switch>
+          
+          <Route path="/" exact strict component={Home} />
+            <VoteContext.Provider value= { {...props} }>
+              {
+                routes.map((route, i) => <Route path={route.path} exact strict component={route.component} key={i} />)
+              }
+            </VoteContext.Provider>
             <Route path="/" exact strict component={Home} />
-              <VoteContext.Provider value= { {...props} }>
-                {
-                  routes.map((route, i) => <Route path={route.path} exact strict component={route.component} key={i} />)
-                }
-              </VoteContext.Provider>
-              <Route path="/" exact strict component={Home} />
-          </Switch>
-        </div>
+        </Switch>
       </div>
     </Router>
   );

@@ -1,6 +1,6 @@
 import Home from '../components/Home/Home'
+import User from '../components/User/User.jsx'
 import Project from '../components/Project/Project';
-import User from '../components/User'
 import Testing from '../components/Testing/Testing'
 import Gallery from '../components/Gallery/Gallery'
 import NotFound from '../components/NotFound/NotFound'

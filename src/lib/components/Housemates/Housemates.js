@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import VoteContext from '../../Context/VoteContext'
-import './Housemates.css'
-import Housemate from '../Housemate/Housemate'
+import './Housemates.scoped.css'
+import Housemate from '../Housemate/Housemate.jsx'
 
 
 function Housemates() {

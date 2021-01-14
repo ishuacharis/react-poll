@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Link, useRouteMatch, } from 'react-router-dom'
-import './Housemate.css'
+import './Housemate.scoped.css'
 
 
 
 const Avatar  = ({avatar, url, name}) => {
   return(
-    <Link to={`${url}/${name}`} className="avatar">
+    <Link to={`${url}/${name}`} className="avatar avatar-large">
       <img src={avatar} alt="" />
     </Link>
   )

@@ -1,0 +1,5 @@
+.project{
+    min-height: 480px;
+    position: relative;
+    display: flex;
+}
