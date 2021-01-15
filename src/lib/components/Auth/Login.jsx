@@ -1,26 +1,36 @@
-import React , { useState} from 'react'
-import {Link} from 'react-router-dom'
+import React , {  useContext} from 'react'
+import {Link, useHistory, useLocation} from 'react-router-dom'
 
 import {handleSubmit} from '../../utils/utils'
 
 import {Formik, Form} from 'formik'
 import { loginSchema } from 'lib/ValidationSchema/schema'
 import FormField from './FormField'
+import AuthContext from 'lib/Context/AuthContext'
 
 function Login() {
-  
-
+  window.hist = useHistory();
+  window.locat = useLocation();
+  let history = useHistory();
+  let location = useLocation();
+  let auth = useContext(AuthContext)
+  let {from} = location.state || { from: { pathname: "/" } };
   return (
     <div className = "login">
       <Formik
         initialValues= { {email: '', password: ''} }
         validationSchema = {loginSchema}
         onSubmit = { (values, { setSubmitting }) => {
-          const args = {
-            values: values,
-            cb: setSubmitting
-          }
-          handleSubmit(args)
+          // const args = {
+          //   values: values,
+          //   cb: setSubmitting
+          // }
+          // handleSubmit(args)
+
+          auth.authenticate(() => {
+            console.log("authenticating from login")
+            history.replace(from)
+          })
         }}
       >
 

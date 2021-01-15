@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Home from 'lib/components/Home/Home'
+import PrivateRoute from 'lib/components/Private/PrivateRoute'
 // import Project from 'lib/components/Project/Project';
 // import User from 'lib/components/User'
 // import Testing from 'lib/components/Testing/Testing'
@@ -19,15 +20,18 @@ import {
   updateUser, changeRemaining
 } from './lib/utils/utils'
 
-import VoteContext from 'lib/Context/VoteContext'
+import VoteContext from 'lib/Context/VoteContext';
+import AuthContext from 'lib/Context/AuthContext';
 
 
 
 function App() {
 
-  const [houseMates, setHouseMateVote] = useState(houseMatesUpForEviction)
-  const [remainingVotes, setRemainingVotes] = useState(totalVotes)
-  const [votesLeft, setVotesLeft] = useState(totalVotes)
+  const [houseMates, setHouseMateVote] = useState(houseMatesUpForEviction);
+  const [remainingVotes, setRemainingVotes] = useState(totalVotes);
+  const [votesLeft, setVotesLeft] = useState(totalVotes);
+  const [isAuthenticated, setAuth] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const args = {
     votes: remainingVotes,
@@ -95,6 +99,21 @@ function App() {
         return false;
       })
   }
+
+  const onAuthenticate = (cb) => {
+    console.log("authenticating...")
+    
+    setAuth(true);
+    setTimeout(cb, 1000);
+  }
+  
+  const onUnAuthenticate = (cb) => {
+    console.log("unauthenticating...")
+    setLoading(true)
+    setAuth(false);
+    setTimeout(cb, 5000);
+  }
+  
   const props = {
     houseMates: houseMates,
     totalVotes: totalVotes,
@@ -105,17 +124,33 @@ function App() {
 
 
 
+  const auth  = {
+    isAuthenticated: isAuthenticated,
+    isLoading: isLoading,
+    authenticate: onAuthenticate,
+    unAuthenticate: onUnAuthenticate
+  };
+
+
   return (
     <Router>
       <div className="App">
         <Switch>
-          
-          <Route path="/" exact strict component={Home} />
-            <VoteContext.Provider value= { {...props} }>
-              {
-                routes.map((route, i) => <Route path={route.path} exact strict component={route.component} key={i} />)
-              }
-            </VoteContext.Provider>
+          <AuthContext.Provider value = { {...auth} }>
+            <Route path="/" exact strict component={Home} />
+              <VoteContext.Provider value= { {...props} }>
+                {
+                  routes.map((route, i) => {
+                    if(route.protected !== true){
+                      return <Route path={route.path} exact strict component={route.component} key={i} />
+                    } 
+                    return <PrivateRoute path= {route.path} key={i} exact strict>
+                                <route.component />
+                            </PrivateRoute>
+                  })
+                }
+              </VoteContext.Provider>
+            </AuthContext.Provider>
             <Route path="/" exact strict component={Home} />
         </Switch>
       </div>

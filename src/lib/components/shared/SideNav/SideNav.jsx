@@ -34,7 +34,7 @@ function SideNav() {
                 </div>
                 <div className="bottom">
                     <li className="sidenav-link">
-                        <Link to="#" className="sidenav-item">
+                        <Link to="/logout" className="sidenav-item">
                             <div className="logout">
                                 <div className="avatar avatar-small">
                                     <img src={require("../../../assets/vee.jpg")} />

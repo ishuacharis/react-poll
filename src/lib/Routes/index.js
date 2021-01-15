@@ -1,10 +1,11 @@
 import Home from '../components/Home/Home'
 import User from '../components/User/User.jsx'
-import Project from '../components/Project/Project';
-import Testing from '../components/Testing/Testing'
-import Gallery from '../components/Gallery/Gallery'
+import Project from '../components/Project/Project.jsx';
+import Testing from '../components/Testing/Testing.jsx'
+import Gallery from '../components/Gallery/Gallery.jsx'
 import NotFound from '../components/NotFound/NotFound'
-import Auth from '../components/Auth/Auth'
+import Auth from '../components/Auth/Auth.jsx'
+import Logout from 'lib/components/Logout/Logout';
 
 
 const routes  = [
@@ -15,10 +16,12 @@ const routes  = [
   },
   {
     path: "/housemates",
+    protected: true,
     component: Project
   },
   {
     path: "/housemates/:id",
+    protected: true,
     component: User
   },
   {
@@ -28,6 +31,11 @@ const routes  = [
   {
     path: "/auth",
     component: Auth
+  },
+  {
+    path: "/logout",
+    protected: true,
+    component: Logout
   },
 
 
