@@ -2,23 +2,28 @@ import React , {  useContext} from 'react'
 import {Link, useHistory, useLocation} from 'react-router-dom'
 
 import {handleSubmit} from '../../utils/utils'
+import { connect } from 'react-redux';
 
-import {Formik, Form} from 'formik'
+import {Formik, Form,} from 'formik'
 import { loginSchema } from 'lib/ValidationSchema/schema'
 import FormField from './FormField'
 import AuthContext from 'lib/Context/AuthContext'
 
-function Login() {
+
+function Login( {counter:{counter} }) {
+  
   window.hist = useHistory();
   window.locat = useLocation();
   let history = useHistory();
   let location = useLocation();
   let auth = useContext(AuthContext)
   let {from} = location.state || { from: { pathname: "/" } };
+  const formValues = {email: '', password: ''};
   return (
+
     <div className = "login">
       <Formik
-        initialValues= { {email: '', password: ''} }
+        initialValues= { formValues }
         validationSchema = {loginSchema}
         onSubmit = { (values, { setSubmitting }) => {
           // const args = {
@@ -36,6 +41,7 @@ function Login() {
 
       {({isSubmitting,isValid, dirty}) => (
         <Form>
+          <div> counter {counter} </div>
           <div className="field__content">
           {isSubmitting}
             <FormField 
@@ -69,5 +75,10 @@ function Login() {
   )
 }
 
+const mapStateToProps = (state) => {
+  return {
+    counter: state.counter
+  }
+}
 
-export default Login
+export default connect(mapStateToProps)(Login)

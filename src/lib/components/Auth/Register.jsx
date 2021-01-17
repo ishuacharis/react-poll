@@ -7,11 +7,11 @@ import FormField from './FormField'
 
 
 function Register() {
-
+  const formValues  = {name: '', email: '', phoneNo: '', password: '', confirmPassword: ''};
   return (
     <div className = "register">
       <Formik
-        initialValues = { {email: '', password: '', confirmPassword: ''} }
+        initialValues = { formValues }
         validationSchema = { signUpSchema }
         onSubmit = { (values, {setSubmitting,})  => {
           const args = {
