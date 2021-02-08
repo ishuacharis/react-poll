@@ -1,5 +1,5 @@
 import React from 'react'
-import {useLocation, Redirect} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import './Auth.css'
 import Login from './Login.jsx'
 import Register from './Register.jsx'

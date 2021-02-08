@@ -3,12 +3,11 @@ import User from '../components/User/User.jsx'
 import Project from '../components/Project/Project.jsx';
 import Testing from '../components/Testing/Testing.jsx'
 import Gallery from '../components/Gallery/Gallery.jsx'
-import NotFound from '../components/NotFound/NotFound'
 import Auth from '../components/Auth/Auth.jsx'
 import Logout from 'lib/components/Logout/Logout';
 
 
-const routes  = [
+const routes = [
 
   {
     path: "/testing",
@@ -38,8 +37,8 @@ const routes  = [
     component: Logout
   },
 
+];
 
-]
+//const router =  routes
 
-
-export default routes
+export default routes;

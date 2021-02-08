@@ -7,12 +7,9 @@ import {
 import './App.css';
 import Home from 'lib/components/Home/Home'
 import PrivateRoute from 'lib/components/Private/PrivateRoute'
-// import Project from 'lib/components/Project/Project';
-// import User from 'lib/components/User'
-// import Testing from 'lib/components/Testing/Testing'
-// import Gallery from 'lib/components/Gallery/Gallery'
+import PublicRoute from 'lib/components/Public/PublicRoute'
 import NotFound from 'lib/components/NotFound/NotFound'
-import routes from 'lib/Routes'
+import routes from 'lib/Router';
 
 import {totalVotes, houseMatesUpForEviction,} from './lib/data/data'
 import {
@@ -101,10 +98,8 @@ function App() {
   }
 
   const onAuthenticate = (cb) => {
-    console.log("authenticating...")
-    
-    setAuth(true);
-    setTimeout(cb, 1000);
+    setAuth(true)
+    cb();
   }
   
   const onUnAuthenticate = (cb) => {
@@ -136,13 +131,17 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
+          <Route path="/" exact strict component={Home} />
+          {/* <Route path="*" component={NotFound} /> */}
           <AuthContext.Provider value = { {...auth} }>
-            <Route path="/" exact strict component={Home} />
+           
               <VoteContext.Provider value= { {...props} }>
                 {
                   routes.map((route, i) => {
                     if(route.protected !== true){
-                      return <Route path={route.path} exact strict component={route.component} key={i} />
+                      return <PublicRoute path= {route.path} key={i} exact strict>
+                        <route.component />
+                      </PublicRoute>
                     } 
                     return <PrivateRoute path= {route.path} key={i} exact strict>
                                 <route.component />
@@ -151,7 +150,7 @@ function App() {
                 }
               </VoteContext.Provider>
             </AuthContext.Provider>
-            <Route path="/" exact strict component={Home} />
+            
         </Switch>
       </div>
     </Router>

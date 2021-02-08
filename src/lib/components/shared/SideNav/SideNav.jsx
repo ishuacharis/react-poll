@@ -37,7 +37,7 @@ function SideNav() {
                         <Link to="/logout" className="sidenav-item">
                             <div className="logout">
                                 <div className="avatar avatar-small">
-                                    <img src={require("../../../assets/vee.jpg")} />
+                                    <img src={require("../../../assets/vee.jpg")} alt="avatar"/>
                                 </div>
                                 <div className="handle">
                                     <span>Olawaley</span>

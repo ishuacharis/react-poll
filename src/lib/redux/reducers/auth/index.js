@@ -1,7 +1,7 @@
 import { SET_TOKEN, SET_USER, TOKEN, USER } from '../../actions/action_types/auth'
 const initialState = {
-    user: JSON.parse(localStorage.getItem('USER')) || '',
-    token: JSON.parse(localStorage.getItem('TOKEN')) || ''
+    user: JSON.parse(localStorage.getItem('USER')) || null,
+    token: JSON.parse(localStorage.getItem('TOKEN')) || null
 }
 
 
@@ -9,7 +9,7 @@ const auth = (state = initialState, action) => {
 
     switch(action.type) {
         case TOKEN:
-            return state.token 
+            return state.token
 
         case USER:
             return state.user

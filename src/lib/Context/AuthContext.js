@@ -9,6 +9,6 @@ const AuthContext  = createContext({
     unAuthenticate: () => {}
 });
 
-AuthContext.displayName = 'AuthCOntext';
+AuthContext.displayName = 'AuthContext';
 
 export default AuthContext

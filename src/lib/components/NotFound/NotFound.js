@@ -5,9 +5,8 @@ function NotFound(){
   let location = useLocation()
   return (
     <div className = "not-found">
-
       Not Found Works {location.pathname}
-
+      kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
     </div>
   )
 }

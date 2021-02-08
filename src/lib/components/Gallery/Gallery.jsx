@@ -7,11 +7,13 @@ function Gallery(){
   const {shortenCounts} = Helper()
   const [photos , setPhotos] = useState(null)
   const [fetching, setFetching] = useState(false)
+  const [search, setSearch] = useState("roses")
   const PREFIXURL =  "https://pixabay.com/api/?key="
 
   const SUFFIXURL =  "&per_page=6"
 
   function getPhotos(queryString ='') {
+    setSearch(queryString)
     setFetching(true)
     let query = encodeURIComponent(queryString)
     let APIURL =  `${PREFIXURL}${KEY}&q=${query}${SUFFIXURL}`
@@ -24,8 +26,8 @@ function Gallery(){
 
   }
   useEffect(() => {
-      getPhotos('roses')
-  }, [])
+      getPhotos(search)
+  },[search])
 
 
   return (
@@ -55,16 +57,16 @@ function Gallery(){
                 <div className="single" key={photo.id}>
                   <div className ="top">
                     <div className="big-image">
-                      <img src={photo.largeImageURL} />
+                      <img src={photo.largeImageURL} alt={photo.largeImageURL} />
                     </div>
                     <div className="small-image">
-                        <img src={photo.previewURL} />
+                        <img src={photo.previewURL} alt={photo.previewURL} />
                     </div>
                   </div>
                   <div className="bottom">
                     <div className="avi">
                       <div className="user-avatar">
-                        <img src = {photo.userImageURL} />
+                        <img src = {photo.userImageURL} alt={photo.userImageURL} />
                       </div>
                     </div>
                     <div className="rating">

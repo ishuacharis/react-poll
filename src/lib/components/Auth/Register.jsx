@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
-import {Formik, Form, Field, ErrorMessage  } from 'formik'
+import {Formik, Form,  } from 'formik'
 import { handleSubmit } from '../../utils/utils'
 import { signUpSchema } from '../../ValidationSchema/schema'
 import FormField from './FormField'

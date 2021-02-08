@@ -1,16 +1,17 @@
-import React , {  useContext} from 'react'
+import React , {useEffect,  useContext} from 'react'
 import {Link, useHistory, useLocation} from 'react-router-dom'
 
-import {handleSubmit} from '../../utils/utils'
+import {handleSubmit, login} from '../../utils/utils'
 import { connect } from 'react-redux';
 
 import {Formik, Form,} from 'formik'
 import { loginSchema } from 'lib/ValidationSchema/schema'
 import FormField from './FormField'
 import AuthContext from 'lib/Context/AuthContext'
+import { setToken, setUser } from 'lib/redux/actions/action_creators/auth';
+import {store} from "../../redux/store";
 
-
-function Login( {counter:{counter} }) {
+function Login({ token,counter, updateToken, updateUser }) {
   
   window.hist = useHistory();
   window.locat = useLocation();
@@ -19,29 +20,49 @@ function Login( {counter:{counter} }) {
   let auth = useContext(AuthContext)
   let {from} = location.state || { from: { pathname: "/" } };
   const formValues = {email: '', password: ''};
+   
   return (
 
     <div className = "login">
       <Formik
         initialValues= { formValues }
         validationSchema = {loginSchema}
-        onSubmit = { (values, { setSubmitting }) => {
-          // const args = {
-          //   values: values,
-          //   cb: setSubmitting
-          // }
-          // handleSubmit(args)
-
-          auth.authenticate(() => {
-            console.log("authenticating from login")
-            history.replace(from)
-          })
+        onSubmit = { async (values, { setSubmitting }) => {
+          const args = {
+            endPoint: "/login",
+            method: "POST",
+            body: {
+              email: values.email,
+              password: values.password
+            },
+          }
+          try {
+            const response  = await login(args);
+            const user  = response['response']['user'];
+            const token  = response['response']['token'];
+            localStorage.setItem('USER', JSON.stringify(user));
+            localStorage.setItem('TOKEN', JSON.stringify(token));
+            updateUser(user)
+            updateToken(token)
+            history.push("/housemates")
+            // auth.authenticate(() => {
+            //   localStorage.setItem('USER', JSON.stringify(user));
+            //   localStorage.setItem('TOKEN', JSON.stringify(token));
+            //   setToken(user);
+            //   setUser(token);
+            //   history.push("/housemates")
+            // })
+          } catch (e) {
+            console.log(`error ${e.message}`)
+          }
+          
+         
         }}
       >
 
       {({isSubmitting,isValid, dirty}) => (
         <Form>
-          <div> counter {counter} </div>
+
           <div className="field__content">
           {isSubmitting}
             <FormField 
@@ -77,8 +98,13 @@ function Login( {counter:{counter} }) {
 
 const mapStateToProps = (state) => {
   return {
-    counter: state.counter
+    counter: state.counter,
+    
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  updateUser: (value) => dispatch(setUser(value)),
+  updateToken: (value) => dispatch(setToken(value)),
+})
 
-export default connect(mapStateToProps)(Login)
+export default connect(mapStateToProps,mapDispatchToProps)(Login)
