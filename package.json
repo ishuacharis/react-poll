@@ -13,6 +13,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "yup": "^0.32.8"
   },
   "scripts": {
@@ -52,6 +53,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-test-renderer": "^17.0.1",
+    "redux-devtools-extension": "^2.13.8",
     "rollup": "^2.38.0",
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-includepaths": "^0.2.4",
