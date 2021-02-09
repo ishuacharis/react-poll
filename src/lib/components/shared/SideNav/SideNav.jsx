@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import './SideNav.scoped.css';
-function SideNav() {
+function SideNav({ user }) {
     return (
         <div className="sidenav">
             <ul className="sidenav-links">
@@ -40,7 +42,7 @@ function SideNav() {
                                     <img src={require("../../../assets/vee.jpg")} alt="avatar"/>
                                 </div>
                                 <div className="handle">
-                                    <span>Olawaley</span>
+                                    <span> { user.name } </span>
                                     <span>@Olawaley</span>
                                 </div>
                             </div>
@@ -52,4 +54,8 @@ function SideNav() {
     )
 }
 
-export default SideNav;
+const mapStateToProps =  (state) => ({
+    user: state.auth.user
+})
+
+export default connect(mapStateToProps)(SideNav);
