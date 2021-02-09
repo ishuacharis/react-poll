@@ -1,4 +1,4 @@
-import { INCREMENT , DECREMENT} from '../action_types/counter';
+import { INCREMENT , DECREMENT} from '../../action_types/counter';
 
 
 export const increment = (value) => {
