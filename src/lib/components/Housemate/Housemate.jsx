@@ -8,7 +8,7 @@ import './Housemate.scoped.css'
 const Avatar  = ({avatar, url, name}) => {
   return(
     <Link to={`${url}/${name}`} className="avatar avatar-large">
-      <img src={avatar} alt="" />
+      <img src={require(`lib/assets/${avatar}`)} alt="" />
     </Link>
   )
 }
@@ -17,11 +17,11 @@ const Avatar  = ({avatar, url, name}) => {
 function Housemate(props) {
     let match = useRouteMatch()
     const {houseMateUpForEviction,} = props
-    const {avatar,name} = houseMateUpForEviction
+    const {avatar,screen_name} = houseMateUpForEviction
 
     return (
       <div className="housemate">
-        <Avatar avatar={avatar} url={match.url} name={name} />
+        <Avatar avatar={avatar} url={match.url} name={screen_name} />
       </div>
 
     );

@@ -1,17 +1,35 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import VoteContext from '../../Context/VoteContext'
 import './Housemates.scoped.css'
 import Housemate from '../Housemate/Housemate.jsx'
+import { eviction } from 'lib/utils/utils'
 
 
 function Housemates() {
 
-    const {houseMates,} = useContext(VoteContext)
-    const houses = houseMates.map((houseMateUpForEviction) =>
+    const {houseMates,} = useContext(VoteContext);
+    const [ evictionList , setEvictionList ] = useState([])
+
+    const args = {
+        endPoint: "/eviction",
+        method: 'GET',
+        token: JSON.parse(localStorage.getItem('REACT_TOKEN'))
+    }
+
+    const getEvictionList =  async () => {
+        const {response: {data}}  = await eviction(args)
+        setEvictionList(data)
+    }
+    useEffect(() => {
+        getEvictionList()
+    }, [])
+
+
+    const houses = evictionList.map((houseMateUpForEviction) =>
     <Housemate
         houseMateUpForEviction= {houseMateUpForEviction}
-        key={houseMateUpForEviction.name}  />
+        key={houseMateUpForEviction.id}  />
     )
     return (
 
