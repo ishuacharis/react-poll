@@ -24,7 +24,7 @@ function SideNav({ user }) {
                         </Link>
                     </li>
                     <li className="sidenav-link">
-                        <Link to="#" className="sidenav-item">
+                        <Link to="/notifications" className="sidenav-item">
                             Notifications
                         </Link>
                     </li>
@@ -39,7 +39,7 @@ function SideNav({ user }) {
                         <Link to="/logout" className="sidenav-item">
                             <div className="logout">
                                 <div className="avatar avatar-small">
-                                    <img src={require("../../../assets/vee.jpg")} alt="avatar"/>
+                                    <img src={require("lib/assets/vee.jpg")} alt="avatar"/>
                                 </div>
                                 <div className="handle">
                                     <span> { user.name } </span>

@@ -1,24 +1,38 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {Formik, Form,  } from 'formik'
-import { handleSubmit } from '../../utils/utils'
+import { handleRegister } from '../../utils/utils'
 import { signUpSchema } from '../../ValidationSchema/schema'
 import FormField from './FormField'
+import { connect } from 'react-redux';
+import { authenticate } from 'lib/redux/actions/action_creators/auth/auth_async_actions'
 
 
-function Register() {
+function Register({ token, handleRequest }) {
   const formValues  = {name: '', email: '', phoneNo: '', password: '', confirmPassword: ''};
+  const history = useHistory();
   return (
     <div className = "register">
       <Formik
         initialValues = { formValues }
         validationSchema = { signUpSchema }
-        onSubmit = { (values, {setSubmitting,})  => {
+        onSubmit = { async (values,)  => {
           const args = {
-            values: values,
-            cb: setSubmitting
+            endPoint: "/register",
+            method: "POST",
+            body: {
+              name: values.name,
+              email: values.email,
+              phone_no: values.phoneNo,
+              password: values.password
+            },
           }
-          handleSubmit(args)
+          await handleRequest(args)
+          
+          if(token) {
+            history.replace("/housemates")
+          }
+          
         } }
       >
         {/* value: get the value entered in the field
@@ -60,9 +74,10 @@ function Register() {
                 }} className="link-item">Already have an account?</Link>
               </div>
               <div className="field">    
-                <button type="submit" className="btn" disabled={!(isValid && dirty) || isSubmitting}> 
+                {!isSubmitting && <button type="submit" className="btn" disabled={ !(dirty && isValid) || isSubmitting}> 
                   Create
-                </button>
+                </button>}
+                {isSubmitting && <div className="loading"></div>}
               </div>
             </div>
           </Form>
@@ -73,8 +88,12 @@ function Register() {
 
 }
 
+const mapStateToProps = (state) => ({
+  token: state.auth.token
+})
 
-export default Register
-// {!isValid  
-//   || (Object.keys(touched).length === 0 && touched.constructor === Object) 
-//   || isSubmitting}
+const mapDispatchToProps = (dispatch) => ({
+  handleRequest: (value) => dispatch(authenticate(value, handleRegister))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Register)

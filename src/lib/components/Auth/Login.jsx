@@ -1,23 +1,24 @@
-import React , {useEffect,  useContext} from 'react'
+import React from 'react'
+
 import {Link, useHistory, useLocation} from 'react-router-dom'
 
-import {handleSubmit, login} from '../../utils/utils'
+import {  authenticate } from "../../redux/actions/action_creators/auth/auth_async_actions"
 import { connect } from 'react-redux';
 
 import {Formik, Form,} from 'formik'
 import { loginSchema } from 'lib/ValidationSchema/schema'
 import FormField from './FormField'
-import AuthContext from 'lib/Context/AuthContext'
-import { setToken, setUser } from 'lib/redux/actions/action_creators/auth';
-import {store} from "../../redux/store";
+import { handleLogin } from 'lib/utils/utils';
 
-function Login({ token,counter, updateToken, updateUser }) {
-  
+
+
+function Login({ token, handleRequest}) {
+
   window.hist = useHistory();
   window.locat = useLocation();
   let history = useHistory();
   let location = useLocation();
-  let auth = useContext(AuthContext)
+ 
   let {from} = location.state || { from: { pathname: "/" } };
   const formValues = {email: '', password: ''};
    
@@ -27,7 +28,8 @@ function Login({ token,counter, updateToken, updateUser }) {
       <Formik
         initialValues= { formValues }
         validationSchema = {loginSchema}
-        onSubmit = { async (values, { setSubmitting }) => {
+        onSubmit = { async (values,) => {
+          
           const args = {
             endPoint: "/login",
             method: "POST",
@@ -36,35 +38,17 @@ function Login({ token,counter, updateToken, updateUser }) {
               password: values.password
             },
           }
-          try {
-            const response  = await login(args);
-            const user  = response['response']['user'];
-            const token  = response['response']['token'];
-            localStorage.setItem('USER', JSON.stringify(user));
-            localStorage.setItem('TOKEN', JSON.stringify(token));
-            updateUser(user)
-            updateToken(token)
-            history.push("/housemates")
-            // auth.authenticate(() => {
-            //   localStorage.setItem('USER', JSON.stringify(user));
-            //   localStorage.setItem('TOKEN', JSON.stringify(token));
-            //   setToken(user);
-            //   setUser(token);
-            //   history.push("/housemates")
-            // })
-          } catch (e) {
-            console.log(`error ${e.message}`)
-          }
+          await handleRequest(args)
           
-         
+          if(token) {
+            history.replace("/housemates")
+          }
         }}
       >
 
-      {({isSubmitting,isValid, dirty}) => (
+      {( {isSubmitting,isValid, dirty} ) => (
         <Form>
-
           <div className="field__content">
-          {isSubmitting}
             <FormField 
               name="email"
               placeholder="Email"
@@ -83,7 +67,7 @@ function Login({ token,counter, updateToken, updateUser }) {
             </div>
             <div className="field">    
               {!isSubmitting && <button type="submit" className="btn" disabled={ !(dirty && isValid) || isSubmitting}> 
-                Log in
+                Log in 
               </button>}
               {isSubmitting && <div className="loading"></div>}
             </div>
@@ -99,12 +83,11 @@ function Login({ token,counter, updateToken, updateUser }) {
 const mapStateToProps = (state) => {
   return {
     counter: state.counter,
-    
+    token: state.auth.token
   }
 }
 const mapDispatchToProps = (dispatch) => ({
-  updateUser: (value) => dispatch(setUser(value)),
-  updateToken: (value) => dispatch(setToken(value)),
+  handleRequest: (value) => dispatch(authenticate(value, handleLogin)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login)
