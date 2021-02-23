@@ -56,13 +56,61 @@ export const handleValidate = (values) => {
     return errors;
   }
   
-export const handleSubmit = (args) => {
-  setTimeout(() => {
-    alert(JSON.stringify(args['values'], null, 2));
-    args['cb'](false);
-  }, 3000); 
+export const handleLogin = (args) => {
+  return login(args)
+}
+
+export const handleRegister = (args) => {
+  return register(args)
+}
+
+export const handleLogOut = (args) => {
+  return logout(args)
 }
 
 export const login = async (args) => {
   return connect(args);
 }
+
+export const register = async (args) => {
+  return connect(args);
+}
+
+export const logout = async (args) => {
+  return connect(args);
+}
+
+export const notifications = async (args) => {
+
+  const endPoint  = args["endPoint"];
+  const uri = BASE_URI+endPoint; 
+  const response = await fetch(uri)
+  if ( !response.ok ) {
+      const error = await response.json();
+      
+      throw new Error(error['response']['message']);
+  }
+
+  return await response.json();
+
+}
+
+export const eviction = async (args) => {
+  const endPoint  = args["endPoint"];
+  const method = args["method"];
+  const token  = args['token'] || '';
+  const authorization = token ?  `Bearer ${token}` : '' ;
+  headers["headers"]["Authorization"] = authorization;
+  const uri = BASE_URI+endPoint; 
+  const options = {
+      method: method,
+      headers: headers["headers"],
+  }
+  const response = await fetch(uri,options)
+  if ( !response.ok ) {
+      const error = await response.json();
+      throw new Error(error['response']['message']);
+  }
+
+  return await response.json();
+};
