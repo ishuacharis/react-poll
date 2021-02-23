@@ -22,7 +22,7 @@ function User({ userId }) {
   const onPositiveClick = () => {
     if(votesLeft > 0 && votesLeft <= 100){ 
       setVoteCount(voteCount + 10);
-      onUserVoteIncrement()
+      onUserVoteIncrement(10)
     }
   }
 
@@ -30,7 +30,7 @@ function User({ userId }) {
     if(votesLeft >= 0 && votesLeft < 100) {
 
       setVoteCount(voteCount - 10);
-      onUserVoteDecrement();
+      onUserVoteDecrement(10);
     }
    
   }
@@ -74,11 +74,12 @@ function User({ userId }) {
     </div>
     )
   }
-
+  const getSingleUser  = async (id) => {
+    const response  = await getUser(id);
+    setUser(response)
+  }
   useEffect(() => {
-    getUser(id).then(res => {
-      setUser(res)
-    })
+    getSingleUser(id)
   }, [id])
 
 

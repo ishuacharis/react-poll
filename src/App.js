@@ -37,12 +37,12 @@ function App() {
     houseMates: houseMates
   }
 
-  const onUserVoteIncrement = () => {
-    setUserRemainingVotes(userRemainingVotes - 10)
+  const onUserVoteIncrement = (count) => {
+    setUserRemainingVotes(userRemainingVotes - count)
     setVotesLeft(votesLeft - 10)
   }
-  const onUserVoteDecrement = () => {
-    setUserRemainingVotes(userRemainingVotes + 10)
+  const onUserVoteDecrement = (count) => {
+    setUserRemainingVotes(userRemainingVotes + count)
     setVotesLeft(votesLeft + 10)
   }
 
