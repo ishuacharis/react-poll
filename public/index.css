@@ -133,6 +133,12 @@ a{
   display: none;
   visibility: hidden;
 }
+.loading-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  min-height: 480px;
+}
 .loading{
   display: inline-block;
   width: 25px;

@@ -10,6 +10,7 @@ function Housemates() {
 
     const {houseMates,} = useContext(VoteContext);
     const [ evictionList , setEvictionList ] = useState([])
+    const [ isLoading, setLoading ] = useState(true);
 
     const args = {
         endPoint: "/eviction",
@@ -21,6 +22,7 @@ function Housemates() {
         const {response: {data}}  = await eviction(args)
         localStorage.setItem('REACT_HOUSEMATES', JSON.stringify(data))
         setEvictionList(data)
+        setLoading(false)
     }
     useEffect(() => {
         getEvictionList()
@@ -32,10 +34,14 @@ function Housemates() {
         houseMateUpForEviction= {houseMateUpForEviction}
         key={houseMateUpForEviction.id}  />
     )
+    if(isLoading) return (
+        <div className="loading-container">
+          <div className="loading"></div>
+        </div>
+    );
     return (
-
         <div className="housemates">
-             {houses}
+            {houses}
         </div>
     )
 }

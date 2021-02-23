@@ -1,5 +1,7 @@
 .project{
     min-height: 480px;
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: 30rem 1fr;
 }
+

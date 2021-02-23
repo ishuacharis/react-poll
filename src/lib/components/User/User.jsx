@@ -83,7 +83,11 @@ function User({ userId }) {
   }, [id])
 
 
-  if(!user) return (<div className="loading"></div>);
+  if(!user) return (
+    <div className="loading-container">
+      <div className="loading"></div>
+    </div>
+  );
 
   return (
     <div className="container">
