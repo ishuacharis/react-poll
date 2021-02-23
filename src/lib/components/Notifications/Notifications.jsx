@@ -6,8 +6,6 @@ import Notification from './Notification';
 
 
 const Notifications = () => {
-
-    const [feedback, setFeedback]  =  useState({});
     const [notificationsObject, setNotificationsObject] = useState({});
     
     const args = {
@@ -17,9 +15,7 @@ const Notifications = () => {
     
     const notificationsCall = async () => {
       
-        const feeds  = await notifications(args)
-        setFeedback(feeds);
-        let { response:{ message:m, notifications:{ data} } } = feeds;
+        const { response:{ message:m, notifications:{ data} } }   = await notifications(args)
         setNotificationsObject({
             message: m,
             notifications: data
