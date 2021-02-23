@@ -5,10 +5,13 @@ const VoteContext = createContext({
     totalVotes: totalVotes,
     votesLeft: totalVotes,
     remainingVotes: totalVotes,
-    houseMatesUpForEviction: houseMatesUpForEviction,
+    houseMatesUpForEviction: JSON.parse(localStorage.getItem('REACT_HOUSEMATES')) || houseMatesUpForEviction,
     changeRemaining: () => {},
+    changeUserRemaining: () => {},
     onVoteIncrement:  () => {},
-    onVoteDecrement: () => {}
+    onUserVoteIncrement:  () => {},
+    onVoteDecrement: () => {},
+    onUserVoteDecrement: () => {}
 })
 VoteContext.displayName = "VoteContext"
 
