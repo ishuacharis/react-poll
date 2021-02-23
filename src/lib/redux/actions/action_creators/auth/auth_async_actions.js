@@ -1,12 +1,12 @@
-import { handleLogin, handleLogOut } from "../../../../utils/utils"
+import { handleLogOut } from "lib/routes"
 import { deleteToken, deleteUser, setLoading, setToken, setUser } from "./auth";
 
 
-export const authenticate  = (details) => {
+export const authenticate  = (details, cb) => {
     
     return async function login (dispatch, getState){
         try {
-            const response  = await handleLogin(details)
+            const response  = await cb(details)
             const user  = response['response']['user'];
             const token  = response['response']['token'];
             localStorage.setItem('REACT_USER', JSON.stringify(user));
