@@ -26,6 +26,7 @@ function App() {
 
   const [houseMates, setHouseMateVote] = useState(houseMatesUpForEviction);
   const [remainingVotes, setRemainingVotes] = useState(totalVotes);
+  const [userRemainingVotes, setUserRemainingVotes] = useState(totalVotes);
   const [votesLeft, setVotesLeft] = useState(totalVotes);
   const [isAuthenticated, setAuth] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -34,6 +35,15 @@ function App() {
     votes: remainingVotes,
     amount: 10, 
     houseMates: houseMates
+  }
+
+  const onUserVoteIncrement = () => {
+    setUserRemainingVotes(userRemainingVotes - 10)
+    setVotesLeft(votesLeft - 10)
+  }
+  const onUserVoteDecrement = () => {
+    setUserRemainingVotes(userRemainingVotes + 10)
+    setVotesLeft(votesLeft + 10)
   }
 
   const increaseUserVoteCount = (args) => {
@@ -111,10 +121,11 @@ function App() {
   
   const props = {
     houseMates: houseMates,
+    votesLeft: votesLeft,
     totalVotes: totalVotes,
-    remainingVotes: remainingVotes,
-    onVoteIncrement: onVoteIncrement,
-    onVoteDecrement: onVoteDecrement,
+    remainingVotes: userRemainingVotes,
+    onUserVoteIncrement: onUserVoteIncrement,
+    onUserVoteDecrement: onUserVoteDecrement,
   }
 
 
