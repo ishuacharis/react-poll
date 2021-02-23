@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import {Formik, Form,  } from 'formik'
-import { handleRegister } from '../../utils/utils'
+import { handleRegister } from 'lib/routes'
 import { signUpSchema } from '../../ValidationSchema/schema'
 import FormField from './FormField'
 import { connect } from 'react-redux';

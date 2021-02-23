@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import VoteContext from '../../Context/VoteContext'
 import './Housemates.scoped.css'
 import Housemate from '../Housemate/Housemate.jsx'
-import { eviction } from 'lib/utils/utils'
+import { eviction } from 'lib/routes'
 
 
 function Housemates() {
@@ -19,6 +19,7 @@ function Housemates() {
 
     const getEvictionList =  async () => {
         const {response: {data}}  = await eviction(args)
+        localStorage.setItem('REACT_HOUSEMATES', JSON.stringify(data))
         setEvictionList(data)
     }
     useEffect(() => {

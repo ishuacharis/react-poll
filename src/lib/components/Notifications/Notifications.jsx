@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Notification.css'
 import { pusherClient } from '../../Context/PusherContext';
-import { notifications } from 'lib/utils/utils';
+import { notifications } from 'lib/routes';
 import Notification from './Notification';
 
 

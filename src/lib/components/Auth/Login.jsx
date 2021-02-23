@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import {Formik, Form,} from 'formik'
 import { loginSchema } from 'lib/ValidationSchema/schema'
 import FormField from './FormField'
-import { handleLogin } from 'lib/utils/utils';
+import { handleLogin } from 'lib/routes';
 
 
 
