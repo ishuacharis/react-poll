@@ -80,6 +80,10 @@ export const logout = async (args) => {
   return connect(args);
 }
 
+export const vote = async (args) => {
+  return await connect(args);
+};
+
 export const notifications = async (args) => {
 
   const endPoint  = args["endPoint"];
