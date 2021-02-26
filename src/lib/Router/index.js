@@ -4,15 +4,15 @@ import Project from '../components/Project/Project.jsx';
 import Testing from '../components/Testing/Testing.jsx'
 import Gallery from '../components/Gallery/Gallery.jsx'
 import Auth from '../components/Auth/Auth.jsx'
-import Logout from 'lib/components/Logout/Logout';
+import Logout from '../components/Logout/Logout';
+import Notifications from '../components/Notifications/Notifications.jsx';
+import Housemate from 'lib/components/Housemate/Housemate';
+import House from 'lib/components/House/House';
 
 
 const routes = [
-
-  {
-    path: "/testing",
-    component: Testing
-  },
+ 
+  
   {
     path: "/housemates",
     protected: true,
@@ -22,6 +22,15 @@ const routes = [
     path: "/housemates/:id",
     protected: true,
     component: User
+  },
+  {
+    path: "/testing",
+    component: Testing
+  },
+  {
+    path: "/notifications",
+    protected: true,
+    component: Notifications
   },
   {
     path: "/gallery",
@@ -37,8 +46,27 @@ const routes = [
     component: Logout
   },
 
+
 ];
 
-//const router =  routes
 
 export default routes;
+
+// {
+//   path: "/project",
+//   protected: true,
+//   component: Project, 
+//   routes:[
+//     {
+//       path: "/project/testing",
+//       protected: true,
+//       component: Testing
+//     },
+//     {
+//       path: "/project/house",
+//       protected: true,
+//       component: House
+//     },
+   
+//   ]
+// },

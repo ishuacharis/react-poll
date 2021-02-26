@@ -9,12 +9,12 @@ function SideNav({ user }) {
             <ul className="sidenav-links">
                 <div className="sidenav-top">
                     <li className="sidenav-link">
-                        <Link to="#" className="sidenav-item">
+                        <Link to="/project/house" className="sidenav-item">
                             Home
                         </Link>
                     </li>
                     <li className="sidenav-link">
-                        <Link to="#" className="sidenav-item">
+                        <Link to="/project/testing" className="sidenav-item">
                             Dashboard
                         </Link>
                     </li>

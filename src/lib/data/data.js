@@ -1,24 +1,24 @@
 
-const totalVotes = 100
+const totalVotes = JSON.parse(localStorage.getItem('REACT_VOTES'));
 const houseMatesUpForEviction = [{
         name: 'laycon',
-        avatar: require("../assets/laycon.jpg"),
+        avatar: require("lib/assets/laycon.jpg"),
         voteCount: 0
 
     },
     {
         name: 'lilo',
-        avatar: require("../assets/lilo.jpeg"),
+        avatar: require("lib/assets/lilo.jpeg"),
         voteCount: 0
     },
     {
         name: 'trikkytee',
-        avatar: require("../assets/trikkytee.jpg"),
+        avatar: require("lib/assets/trikkytee.jpg"),
         voteCount: 0
     },
     {
         name: 'vee',
-        avatar: require("../assets/vee.jpg"),
+        avatar: require("lib/assets/vee.jpg"),
         voteCount: 0
     }
 
@@ -35,9 +35,10 @@ const themes  =  {
 }
 
 const getUser =  (screen_name) => {
+    const evictionList =  JSON.parse(localStorage.getItem('REACT_HOUSEMATES'));
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(houseMatesUpForEviction.find(housemate => housemate.name === screen_name))
+        resolve(evictionList.find(housemate => housemate.screen_name === screen_name))
         reject("Failure")
       }, 3000)
     })

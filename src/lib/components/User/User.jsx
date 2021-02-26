@@ -6,6 +6,7 @@ import { getUser } from "../../data/data";
 import VoteContext from "../../Context/VoteContext";
 import { connect } from 'react-redux';
 import { vote } from 'lib/routes'
+import SideNav from '../shared/SideNav/SideNav';
 
 function User({ userId }) {
   let {id} = useParams()
@@ -91,38 +92,43 @@ function User({ userId }) {
 
   return (
     <div className="container">
-      <MyVote />
-      <div className="content">
-        <div className="center">
-          <div className="avatar">
-            <img src={require(`lib/assets/${user.avatar}`)} alt="" />
-          </div> 
-          <div className="name">
-            {user.name}
-          </div>
-          <div className="controls">
-            <Control
-              reference = {positiveClick}
-              event={onPositiveClick}
-              data={user}
-              operator="+"
-            />
-            <div className="control">
-              <input type="text" value={voteCount} disabled ref={inputRef}  />
+      <div className="project">
+        <SideNav />
+        <div>
+          <MyVote />
+          <div className="content">
+            <div className="center">
+              <div className="avatar">
+                <img src={require(`lib/assets/${user.avatar}`)} alt="" />
+              </div> 
+              <div className="name">
+                {user.screen_name}
+              </div>
+              <div className="controls">
+                <Control
+                  reference = {positiveClick}
+                  event={onPositiveClick}
+                  data={user}
+                  operator="+"
+                />
+                <div className="control">
+                  <input type="text" value={voteCount} disabled ref={inputRef}  />
+                </div>
+                <Control
+                  reference = {negativeClick}
+                  event={onNegativeClick}
+                  data={user}
+                  operator="-"
+                />
+              </div>
+              <div className="buttons">
+                <Link className="btn btn-primary" to="/housemates">Back</Link>
+                {!isLoading && <button type="submit" className="btn btn-primary" onClick={() => submit()}>Cast Vote</button>}
+                {isLoading && <div className="loading"></div>}
+              </div>
+              
             </div>
-            <Control
-              reference = {negativeClick}
-              event={onNegativeClick}
-              data={user}
-              operator="-"
-            />
           </div>
-          <div className="buttons">
-            <Link className="btn btn-primary" to="/housemates">Back</Link>
-            {!isLoading && <button type="submit" className="btn btn-primary" onClick={() => submit()}>Cast Vote</button>}
-            {isLoading && <div className="loading"></div>}
-          </div>
-          
         </div>
       </div>
     </div>

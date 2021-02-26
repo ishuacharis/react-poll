@@ -155,8 +155,8 @@ function App() {
                       </PublicRoute>
                     } 
                     return <PrivateRoute path= {route.path} key={i} exact strict>
-                                <route.component />
-                            </PrivateRoute>
+                      <route.component />
+                    </PrivateRoute>
                   })
                 }
               </VoteContext.Provider>

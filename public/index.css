@@ -168,8 +168,12 @@ a{
   font-size: 1.8em;
 }
 
-/* @media screen and (min-width: 601px) {
-  .navLinks {
-    min-height: 100vh;
-  }
-} */
+/* project */
+
+.project{
+  min-height: 480px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 30rem 1fr;
+}
+
