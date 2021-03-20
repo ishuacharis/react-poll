@@ -34,6 +34,7 @@ const routes = [
   },
   {
     path: "/gallery",
+    protected: true,
     component: Gallery
   },
   {
