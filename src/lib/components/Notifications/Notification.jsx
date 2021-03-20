@@ -6,7 +6,7 @@ const Notification = ({notifications})  => {
 
         list =  notifications.map((notification) => {
             return (<div key={notification.id}>
-                { JSON.stringify(notification.info.details.name) }
+                { JSON.stringify(notification.type) }
             </div>)
         })
     }
