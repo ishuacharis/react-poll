@@ -1,37 +1,54 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useReducer,} from 'react'
 import "./Gallery.css"
 import Helper from  "../../Helper"
 
+function galleryReducer(state, { type, payload:{ search, fetching, photos} }) {
+
+  switch (type) {
+    case "set_search":
+      return { ...state, search:  search }
+    case "set_fetching":
+      return { ...state, fetching:  fetching }
+    case "set_photos":
+      return { ...state, photos:  photos }
+      
+    default:
+      break;
+  }
+}
+
 function Gallery(){
+  const [ state, dispatch ] = useReducer(galleryReducer, { search: 'roses' , fetching: false, photos: null });
   const KEY = process.env.REACT_APP_PIXABAY_KEY
   const {shortenCounts} = Helper()
-  const [photos , setPhotos] = useState(null)
-  const [fetching, setFetching] = useState(false)
-  const [search, setSearch] = useState("roses")
+
+
   const PREFIXURL =  "https://pixabay.com/api/?key="
 
   const SUFFIXURL =  "&per_page=6"
 
   function getPhotos(queryString ='') {
-    setSearch(queryString)
-    setFetching(true)
+    dispatch({ type: 'set_search', payload: { search: queryString } })
+    dispatch({ type: 'set_fetching', payload: { fetching: true } })
+    
+  
     let query = encodeURIComponent(queryString)
     let APIURL =  `${PREFIXURL}${KEY}&q=${query}${SUFFIXURL}`
      fetch(APIURL)
     .then(data => data.json())
-    .then(data => {
-      setPhotos(data.hits)
-      setFetching(false)
+    .then(({ hits })  => {
+      dispatch({ type: 'set_photos', payload: { photos: hits } })
+      dispatch({ type: 'set_fetching', payload: { fetching: false } })
     })
 
   }
   useEffect(() => {
-      getPhotos(search)
-  },[search])
+      getPhotos(state.search)
+  },[state.search])
 
 
   return (
-    !photos ? <div>loading....</div> :
+    !state.photos ? <div>loading....</div> :
     <div className="container">
       <div className="Gallery">
         <div className="buttons">
@@ -52,7 +69,7 @@ function Gallery(){
         </div>
         <div className="center-gallery">
           {
-            photos.map((photo) => {
+            state.photos.map((photo) => {
               return (
                 <div className="single" key={photo.id}>
                   <div className ="top">

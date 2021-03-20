@@ -18,7 +18,13 @@ function Home() {
               }} className="navLink">Login</Link>
             </li>
             <li>
-              <Link to="/testing" className="navLink">Testing</Link>
+              <Link to="/testing" className="navLink" replace>Testing</Link>
+            </li>
+            <li>
+              <Link to="/house" className="navLink">House</Link>
+            </li>
+            <li>
+              <Link to="/topics" className="navLink">Topics</Link>
             </li>
             <li>
               <Link to="/housemates" className="navLink">Projects</Link>
