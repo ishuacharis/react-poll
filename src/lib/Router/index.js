@@ -6,6 +6,7 @@ import Gallery from '../components/Gallery/Gallery.jsx'
 import Auth from '../components/Auth/Auth.jsx'
 import Logout from '../components/Logout/Logout';
 import Notifications from '../components/Notifications/Notifications.jsx';
+import Profile from '../components/Profile/Profile.jsx';
 import Housemate from 'lib/components/Housemate/Housemate';
 import House from 'lib/components/House/House';
 
@@ -33,6 +34,11 @@ const routes = [
     component: Notifications
   },
   {
+    path: "/profile",
+    protected: true,
+    component: Profile
+  },
+  {
     path: "/gallery",
     protected: true,
     component: Gallery
@@ -52,22 +58,3 @@ const routes = [
 
 
 export default routes;
-
-// {
-//   path: "/project",
-//   protected: true,
-//   component: Project, 
-//   routes:[
-//     {
-//       path: "/project/testing",
-//       protected: true,
-//       component: Testing
-//     },
-//     {
-//       path: "/project/house",
-//       protected: true,
-//       component: House
-//     },
-   
-//   ]
-// },
