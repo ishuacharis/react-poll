@@ -1,5 +1,5 @@
 import { handleLogOut } from "lib/routes"
-import { deleteToken, deleteUser, setLoading, setToken, setUser } from "./auth";
+import { deleteToken, deleteUser, setLoading, setToken, setUser } from "./index";
 
 
 export const authenticate  = (details, cb) => {
