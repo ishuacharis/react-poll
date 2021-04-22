@@ -1,12 +1,15 @@
+import { useField } from 'formik';
 import React from 'react'
-import {Field, ErrorMessage} from 'formik';
+//import {Field, ErrorMessage} from 'formik';
 
 
-function FormField({name, ...rest}){
+function FormField({label,...props}){
+    const [field,meta,helpers] = useField(props);
+
     return(
         <div className="field">
-            <Field name={name} className="input" {...rest} />
-            <ErrorMessage name = {name} component="div"  className="formError"  />
+            <input { ...field } {  ...props } className="input" />
+            {meta.error && meta.touched && <div className="formError"> {meta.error} </div>}
         </div>
     )
 }

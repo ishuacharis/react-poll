@@ -2,19 +2,19 @@ import React from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import {Formik, Form,  } from 'formik'
 import { handleRegister } from 'lib/routes'
-import { signUpSchema } from '../../ValidationSchema/schema'
+import { signUpSchema, registerFormValues } from '../../ValidationSchema/schema'
 import FormField from './FormField'
 import { connect } from 'react-redux';
 import { authenticate } from 'lib/redux/actions/action_creators/auth/auth_async_actions'
 
 
 function Register({ token, handleRequest }) {
-  const formValues  = {name: '', email: '', phoneNo: '', password: '', confirmPassword: ''};
+  
   const history = useHistory();
   return (
     <div className = "register">
       <Formik
-        initialValues = { formValues }
+        initialValues = { registerFormValues }
         validationSchema = { signUpSchema }
         onSubmit = { async (values,)  => {
           const args = {
@@ -45,27 +45,32 @@ function Register({ token, handleRequest }) {
                 name="name"
                 placeholder="Name"
                 type="text"
+                label="Name"
               />
               <FormField 
                 name="email"
                 placeholder="Email"
                 type="email"
+                label="Email"
               />
               <FormField 
                 name="phoneNo"
                 placeholder="Phone no"
                 type="text"
+                label="Phone"
               />
               <FormField 
                 name="password"
                 placeholder="Password"
                 type="password"
+                label="Password"
               />
 
               <FormField 
                 name="confirmPassword"
                 placeholder="Confirm Password"
                 type="password"
+                label="Confirm Password"
               />
               <div className="link">
                 <Link to={{

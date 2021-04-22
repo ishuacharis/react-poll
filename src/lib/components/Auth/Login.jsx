@@ -6,7 +6,7 @@ import {  authenticate } from "../../redux/actions/action_creators/auth/auth_asy
 import { connect } from 'react-redux';
 
 import {Formik, Form,} from 'formik'
-import { loginSchema } from 'lib/ValidationSchema/schema'
+import { loginSchema , loginFormValues} from 'lib/ValidationSchema/schema'
 import FormField from './FormField'
 import { handleLogin } from 'lib/routes';
 
@@ -20,13 +20,13 @@ function Login({ token, handleRequest}) {
   let location = useLocation();
  
   let {from} = location.state || { from: { pathname: "/" } };
-  const formValues = {email: '', password: ''};
+  
    
   return (
 
     <div className = "login">
       <Formik
-        initialValues= { formValues }
+        initialValues= { loginFormValues }
         validationSchema = {loginSchema}
         onSubmit = { async (values,) => {
           
@@ -53,11 +53,13 @@ function Login({ token, handleRequest}) {
               name="email"
               placeholder="Email"
               type="email"
+              label="Email"
             />
             <FormField 
               name="password"
               placeholder="Password"
               type="password"
+              label="Password"
             />
             <div className="link">
               <Link to={{
