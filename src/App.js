@@ -22,7 +22,7 @@ import AuthContext from 'lib/Context/AuthContext';
 
 
 
-function App() {
+function Main() {
 
   const [houseMates, setHouseMateVote] = useState(houseMatesUpForEviction);
   const [remainingVotes, setRemainingVotes] = useState(totalVotes);
@@ -169,4 +169,4 @@ function App() {
 }
 
 
-export default App;
+export default Main;
