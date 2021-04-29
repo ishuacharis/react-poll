@@ -1,0 +1,1 @@
+export const SET_EVICTION_LIST =  "SET_EVICTION_LIST";

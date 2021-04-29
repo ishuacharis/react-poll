@@ -1,8 +1,19 @@
 import {  combineReducers  } from 'redux';
+import { persistReducer  } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import counter from './counter/index'
-import auth from './auth/index'
+import global from './global/index';
+import counter from './counter/index';
+import auth from './auth/index';
+import housemate from './housemate/index';
 
-const reducers = combineReducers({counter, auth})
+const persistConfig = {
+    key: 'root',
+    storage
+};
 
-export default reducers;
+const reducers = combineReducers({global, counter, auth,housemate})
+const persistedReducer =  persistReducer(persistConfig,reducers);
+
+
+export default persistedReducer;

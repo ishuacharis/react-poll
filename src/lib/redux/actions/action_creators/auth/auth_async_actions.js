@@ -1,21 +1,18 @@
 import { handleLogOut } from "lib/routes"
 import { deleteToken, deleteUser, setLoading, setToken, setUser } from "./index";
+import {  setError } from "../global/index";
 
 
 export const authenticate  = (details, cb) => {
-    
+     
     return async function login (dispatch, getState){
         try {
-            const response  = await cb(details)
-            const user  = response['response']['user'];
-            const token  = response['response']['token'];
-            localStorage.setItem('REACT_USER', JSON.stringify(user));
-            localStorage.setItem('REACT_TOKEN', JSON.stringify(token));
+            const { response: { user, token, message } }  = await cb(details)
             dispatch(setUser(user))
             dispatch(setToken(token))
         } catch (error) {
             
-            console.log("hehheheh")
+            dispatch(setError(error))
         }
 
 
