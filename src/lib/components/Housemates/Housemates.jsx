@@ -1,47 +1,38 @@
-import React, { useContext, useEffect, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer,  } from 'react'
 import PropTypes from 'prop-types'
 import VoteContext from '../../Context/VoteContext'
 import './Housemates.scoped.css'
 import Housemate from '../Housemate/Housemate.jsx'
 import { eviction } from 'lib/routes'
+import { connect } from 'react-redux'
+import { getEviction } from 'lib/redux/actions/action_creators/housemate/housemate_async_action'
 
-function houseMatesReducer(state, {type, payload: { houseMates, isLoading} }) {
-    switch (type) {
-        case "set_evictionList":
-            return  { ...state, houseMates: houseMates }
-        case "setIsLoading":
-            return { ...state, isLoading: isLoading }
-        default:
-            throw new Error();
-    }
-}
-function Housemates() {
+
+
+const  Housemates = ({token,housemates,loading,handleRequest}) => {
 
     const {houseMates,} = useContext(VoteContext);
-    const [ state , dispatch] = useReducer(houseMatesReducer,{houseMates: [], isLoading: true });
+    
     const args = {
         endPoint: "/eviction",
         method: 'GET',
-        token: JSON.parse(localStorage.getItem('REACT_TOKEN'))
+        token: token
     }
 
     const getEvictionList =  async () => {
-        const {response: {data}}  = await eviction(args)
-        localStorage.setItem('REACT_HOUSEMATES', JSON.stringify(data))
-        dispatch({ type: "set_evictionList", payload: { houseMates: data } })
-        dispatch({ type: "setIsLoading", payload: { isLoading: false } })
-        
+        await handleRequest(args);        
     }
+    
     useEffect(() => {
         getEvictionList()
     }, [])
 
-    const houses = state.houseMates.map((houseMateUpForEviction) =>
+    const houses = housemates.map((houseMateUpForEviction) =>
     <Housemate
         houseMateUpForEviction= {houseMateUpForEviction}
         key={houseMateUpForEviction.id}  />
     )
-    if(state.isLoading) return (
+    if(loading) return (
         <div className="loading-container">
           <div className="loading"></div>
         </div>
@@ -62,5 +53,13 @@ Housemates.propTypes = {
         })
     ),
 }
+const mapStateToProps = (state) => ({
+    loading: state.global.loading,
+    token:  state.auth.token,
+    housemates: state.housemate.housemates
+})
 
-export default Housemates
+const mapDispatchToProps = (dispatch) => ({
+    handleRequest: (value) => dispatch(getEviction(value, eviction))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Housemates)

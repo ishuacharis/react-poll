@@ -102,7 +102,7 @@ function SideNav({ user:{name} }) {
                         </li>
                     </Link>               
                 </ul>
-        </div>
+            </div>
             <div className="bottom">
                 <li className="sidenav__link-bottom">
                     <button type="button" className="bottom-logout__btn">
